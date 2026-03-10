@@ -5,6 +5,8 @@ export const site = {
   title: "Allen Abraham | Portfolio",
   tagline: "Student at the University of Waterloo.",
   avatar: "https://avatars.githubusercontent.com/u/112788997?v=4",
+  // Resume: filename in public/ folder, or full URL (e.g. Google Drive)
+  resumeUrl: "Allen_Resume_EmbeddedNew.pdf",
 };
 
 export const social = [

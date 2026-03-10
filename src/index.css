@@ -415,6 +415,54 @@ img {
   color: var(--text);
 }
 
+/* Resume section */
+.resume-section {
+  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.resume-box {
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 28em;
+}
+
+.resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--accent);
+  transition: color var(--transition);
+}
+
+.resume-link:hover {
+  color: var(--accent-hover);
+}
+
+.resume-icon {
+  font-size: 1.5rem;
+}
+
+.resume-placeholder {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.resume-placeholder code {
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  color: var(--accent);
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;

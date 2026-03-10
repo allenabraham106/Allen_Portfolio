@@ -133,12 +133,27 @@ export default function Home() {
                 together in embedded systems.
               </motion.p>
               <motion.div className="hero-actions" variants={item}>
-                <a href="#experience" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+                >
                   Experience
-                </a>
-<a href="#projects" className="btn btn-secondary">
-              Projects
-            </a>
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  Projects
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => document.getElementById("resume")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  Resume
+                </button>
               </motion.div>
             </div>
             <motion.div className="hero-avatar" variants={item}>
@@ -334,6 +349,41 @@ export default function Home() {
                 <span className="hobby-label">{hobby.label}</span>
               </motion.div>
             ))}
+          </motion.div>
+        </section>
+
+        <section id="resume" className="resume-section">
+          <motion.h2
+            className="section-title"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
+          >
+            Resume
+          </motion.h2>
+          <motion.div
+            className="resume-box"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4 }}
+          >
+            {site.resumeUrl ? (
+              <a
+                href={site.resumeUrl.startsWith("http") ? site.resumeUrl : `${(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}/${site.resumeUrl.replace(/^\//, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="resume-link"
+              >
+                <span className="resume-icon">📄</span>
+                View / Download resume
+              </a>
+            ) : (
+              <p className="resume-placeholder">
+                Add your resume link in <code>src/config.js</code> — set <code>resumeUrl</code> to your PDF URL or path (e.g. <code>/resume.pdf</code> if you put the file in <code>public/</code>).
+              </p>
+            )}
           </motion.div>
         </section>
       </div>
