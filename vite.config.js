@@ -8,9 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
-  // GitHub Pages: if your site is at username.github.io/REPO-NAME/ then set base to '/REPO-NAME/'
-  // (e.g. repo "Personal Portfolio" → base: '/Personal-Portfolio/'). Use './' for root or user sites.
-  base: './',
+  // GitHub Pages: https://allenabraham106.github.io/Allen_Portfolio/
+  base: '/Allen_Portfolio/',
   plugins: [
     react(),
     // GitHub Pages: serve index.html for 404s so client-side routing works
