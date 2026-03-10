@@ -112,7 +112,40 @@ img {
 /* Home — Hero */
 .hero {
   padding: 3rem 0 4rem;
-  max-width: 32em;
+}
+
+.hero-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  max-width: 56em;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-avatar {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.hero-avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+@media (min-width: 520px) {
+  .hero-avatar img {
+    width: 260px;
+    height: 260px;
+  }
 }
 
 .hero-label {

@@ -4,6 +4,7 @@ export const site = {
   name: "Allen Abraham",
   title: "Allen Abraham | Portfolio",
   tagline: "Student at the University of Waterloo.",
+  avatar: "https://avatars.githubusercontent.com/u/112788997?v=4",
 };
 
 export const social = [

@@ -118,30 +118,37 @@ export default function Home() {
           initial="hidden"
           animate="visible"
         >
-          <motion.p className="hero-label" variants={item}>
-            Hi, I'm
-          </motion.p>
-          <motion.h1 className="hero-title" variants={item}>
-            {site.name}
-          </motion.h1>
-          <motion.p className="hero-subtitle" variants={item}>
-            {site.tagline} I build things in firmware and am interested in{" "}
-            <span className="highlight">autonomy</span>,{" "}
-            <span className="highlight">human-robot interaction (HRI)</span>, and{" "}
-            <span className="highlight">perception</span> — and bringing them
-            together in embedded systems.
-          </motion.p>
-          <motion.div className="hero-actions" variants={item}>
-            <a href="#experience" className="btn btn-primary">
-              Experience
-            </a>
-            <a href="#projects" className="btn btn-secondary">
-              Projects
-            </a>
-            <Link to="/blog" className="btn btn-secondary">
-              Blog
-            </Link>
-          </motion.div>
+          <div className="hero-inner">
+            <div className="hero-text">
+              <motion.p className="hero-label" variants={item}>
+                Hi, I'm
+              </motion.p>
+              <motion.h1 className="hero-title" variants={item}>
+                {site.name}
+              </motion.h1>
+              <motion.p className="hero-subtitle" variants={item}>
+                {site.tagline} I build things in firmware and am interested in{" "}
+                <span className="highlight">autonomy</span>,{" "}
+                <span className="highlight">human-robot interaction (HRI)</span>, and{" "}
+                <span className="highlight">perception</span> — and bringing them
+                together in embedded systems.
+              </motion.p>
+              <motion.div className="hero-actions" variants={item}>
+                <a href="#experience" className="btn btn-primary">
+                  Experience
+                </a>
+                <a href="#projects" className="btn btn-secondary">
+                  Projects
+                </a>
+                <Link to="/blog" className="btn btn-secondary">
+                  Blog
+                </Link>
+              </motion.div>
+            </div>
+            <motion.div className="hero-avatar" variants={item}>
+              <img src={site.avatar} alt="" />
+            </motion.div>
+          </div>
         </motion.section>
 
         <section id="experience" className="experience-section">
