@@ -4,7 +4,6 @@ import { social as socialLinks } from "../config";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/blog", label: "Blog" },
 ];
 
 function SocialIcon({ name }) {

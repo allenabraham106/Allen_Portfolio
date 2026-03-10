@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { site } from "../config";
 
@@ -137,12 +136,9 @@ export default function Home() {
                 <a href="#experience" className="btn btn-primary">
                   Experience
                 </a>
-                <a href="#projects" className="btn btn-secondary">
-                  Projects
-                </a>
-                <Link to="/blog" className="btn btn-secondary">
-                  Blog
-                </Link>
+<a href="#projects" className="btn btn-secondary">
+              Projects
+            </a>
               </motion.div>
             </div>
             <motion.div className="hero-avatar" variants={item}>
