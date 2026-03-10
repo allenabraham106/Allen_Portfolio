@@ -4,21 +4,18 @@ Personal portfolio (React + Vite). Deployed on GitHub Pages.
 
 ## Deploying to GitHub Pages
 
-1. **Set the base path** (if using a project site):  
-   If your site URL is `https://<username>.github.io/<repo-name>/`, open `vite.config.js` and set:
-   ```js
-   base: '/<repo-name>/',   // e.g. base: '/Personal-Portfolio/'
-   ```
-   Use `base: './'` if the site is at the root (e.g. user site or custom domain).
+**Option A — GitHub Actions (recommended)**  
+1. Push this repo (including the `.github/workflows/deploy.yml` file) to your `Allen_Portfolio` repo.  
+2. In the repo go to **Settings → Pages**.  
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.  
+4. Push to the `main` branch; the workflow will build and deploy. Your site will be at `https://allenabraham106.github.io/Allen_Portfolio/`.  
+5. The app uses **HashRouter**, so URLs are `...#/` (home) and `...#/blog` (blog). No need to rename any files.
 
-2. **Build and deploy**:
-   ```bash
-   npm run build
-   ```
-   Push the contents of the `dist` folder to the `gh-pages` branch (or use GitHub Actions).  
-   The build copies `index.html` to `404.html` so direct links and refreshes work with client-side routing.
-
-3. In the repo **Settings → Pages**, choose the branch (and folder) that contains the built files.
+**Option B — Deploy from a branch**  
+1. Run `npm run build`.  
+2. Copy the **contents** of the `dist` folder (all files and the `assets` and `images` folders), **not** the `dist` folder itself.  
+3. Push those contents to the root of the `gh-pages` branch (or the branch you use for Pages).  
+4. In **Settings → Pages**, set **Source** to that branch and folder **/ (root)**.
 
 ---
 
