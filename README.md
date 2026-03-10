@@ -1,3 +1,27 @@
+# Allen Abraham — Portfolio
+
+Personal portfolio (React + Vite). Deployed on GitHub Pages.
+
+## Deploying to GitHub Pages
+
+1. **Set the base path** (if using a project site):  
+   If your site URL is `https://<username>.github.io/<repo-name>/`, open `vite.config.js` and set:
+   ```js
+   base: '/<repo-name>/',   // e.g. base: '/Personal-Portfolio/'
+   ```
+   Use `base: './'` if the site is at the root (e.g. user site or custom domain).
+
+2. **Build and deploy**:
+   ```bash
+   npm run build
+   ```
+   Push the contents of the `dist` folder to the `gh-pages` branch (or use GitHub Actions).  
+   The build copies `index.html` to `404.html` so direct links and refreshes work with client-side routing.
+
+3. In the repo **Settings → Pages**, choose the branch (and folder) that contains the built files.
+
+---
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
