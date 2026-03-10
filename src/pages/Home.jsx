@@ -209,7 +209,10 @@ export default function Home() {
                   >
                     {hasImage && (
                       <div className="experience-image experience-image--banner">
-                        <img src={exp.image} alt={exp.imageAlt} />
+                        <img
+                          src={`${(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}${exp.image}`}
+                          alt={exp.imageAlt}
+                        />
                       </div>
                     )}
                     <div className="experience-content">
