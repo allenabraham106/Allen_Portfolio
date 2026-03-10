@@ -32,7 +32,7 @@ export default function Layout() {
       >
         <div className="container header-inner">
           <Link to="/" className="logo">
-            Portfolio
+            Abraham
           </Link>
           <nav className="nav">
             {navLinks.map(({ to, label }) => (
