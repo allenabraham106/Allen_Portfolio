@@ -90,6 +90,13 @@ const projects = [
     link: "https://devpost.com/software/behaviourly",
   },
   {
+    id: "carevoice",
+    title: "CareVoice",
+    description:
+      "A language coach designed for Rohingya women who are new to Canadian workplace culture, helping with communication, confidence, and context.",
+    link: "https://github.com/allenabraham106/AIForGood",
+  },
+  {
     id: "license-plate-recognition",
     title: "License Plate Recognition",
     description:
