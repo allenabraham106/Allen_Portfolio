@@ -36,6 +36,89 @@ const projectItem = {
   },
 };
 
+// GitHub-style language colors (approximate)
+const LANGUAGE_COLORS = {
+  python: "#3572A5",
+  javascript: "#f1e05a",
+  typescript: "#3178c6",
+  html: "#e34c26",
+  css: "#563d7c",
+  "c++": "#f34b7d",
+  cpp: "#f34b7d",
+  c: "#555555",
+  java: "#b07219",
+  "c#": "#178600",
+  csharp: "#178600",
+  go: "#00ADD8",
+  rust: "#dea584",
+  ruby: "#701516",
+  php: "#4F5D95",
+  swift: "#F05138",
+  kotlin: "#A97BFF",
+  dart: "#00B4AB",
+  shell: "#89e051",
+  dockerfile: "#384d54",
+  jupyter: "#DA5B0B",
+  vue: "#41b883",
+  react: "#61dafb",
+  cmake: "#064F8C",
+};
+
+function languageColor(name) {
+  const key = name.trim().toLowerCase();
+  return LANGUAGE_COLORS[key] || "#8b949e";
+}
+
+/** @param {{ name: string, pct?: number }[]} langs */
+function normalizeLanguagePcts(langs) {
+  if (!langs?.length) return [];
+  const allHavePct = langs.every((l) => typeof l.pct === "number");
+  if (allHavePct) {
+    const total = langs.reduce((s, l) => s + (l.pct ?? 0), 0);
+    if (total <= 0) {
+      const n = langs.length;
+      return langs.map((l) => ({ name: l.name, pct: 100 / n }));
+    }
+    return langs.map((l) => ({
+      name: l.name,
+      pct: ((l.pct ?? 0) / total) * 100,
+    }));
+  }
+  const n = langs.length;
+  return langs.map((l) => ({ name: l.name, pct: 100 / n }));
+}
+
+function ProjectLanguages({ languages }) {
+  const items = normalizeLanguagePcts(languages);
+  if (!items.length) return null;
+  return (
+    <div className="project-languages">
+      <div className="project-lang-bar" role="img" aria-label={`Languages: ${items.map((l) => l.name).join(", ")}`}>
+        {items.map((l) => (
+          <span
+            key={l.name}
+            className="project-lang-segment"
+            style={{
+              width: `${l.pct}%`,
+              backgroundColor: languageColor(l.name),
+            }}
+            title={`${l.name} ${Math.round(l.pct)}%`}
+          />
+        ))}
+      </div>
+      <ul className="project-lang-legend">
+        {items.map((l) => (
+          <li key={l.name}>
+            <span className="project-lang-dot" style={{ backgroundColor: languageColor(l.name) }} />
+            <span className="project-lang-name">{l.name}</span>
+            <span className="project-lang-pct">{Math.round(l.pct)}%</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 // Experience entries — collapsed by default, expand on click
 const experiences = [
   {
@@ -88,6 +171,12 @@ const projects = [
     description:
       "Interview Better, Practice Smarter, Land the Job! An AI-powered interview practice tool to help you prepare and land the role.",
     link: "https://devpost.com/software/behaviourly",
+    languages: [
+      { name: "Python", pct: 52 },
+      { name: "TypeScript", pct: 28 },
+      { name: "HTML", pct: 12 },
+      { name: "CSS", pct: 8 },
+    ],
   },
   {
     id: "carevoice",
@@ -95,6 +184,11 @@ const projects = [
     description:
       "A language coach designed for Rohingya women who are new to Canadian workplace culture, helping with communication, confidence, and context.",
     link: "https://github.com/allenabraham106/AIForGood",
+    languages: [
+      { name: "Python", pct: 58 },
+      { name: "TypeScript", pct: 32 },
+      { name: "Shell", pct: 10 },
+    ],
   },
   {
     id: "license-plate-recognition",
@@ -102,6 +196,7 @@ const projects = [
     description:
       "Python-based license plate recognition project — computer vision and image processing for detecting and reading license plates.",
     link: "https://github.com/allenabraham106/license_plate_recognition",
+    languages: [{ name: "Python", pct: 100 }],
   },
   {
     id: "super-mega-robot",
@@ -109,6 +204,11 @@ const projects = [
     description:
       "A robotics hackathon project — super mega. Built with C++ for the UTRA Hackathon.",
     link: "https://devpost.com/software/goon-machine",
+    languages: [
+      { name: "C++", pct: 78 },
+      { name: "Python", pct: 15 },
+      { name: "CMake", pct: 7 },
+    ],
   },
 ];
 
@@ -288,7 +388,7 @@ export default function Home() {
                   Add your projects in the <code>projects</code> array at the
                   top of <code>src/pages/Home.jsx</code>. Each item:{" "}
                   <code>title</code>, <code>description</code>, optional{" "}
-                  <code>link</code>.
+                  <code>link</code> and <code>languages</code>.
                 </p>
               </motion.div>
             ) : (
@@ -301,6 +401,9 @@ export default function Home() {
                 >
                   <h3 className="project-card-title">{project.title}</h3>
                   <p className="project-card-desc">{project.description}</p>
+                  {project.languages?.length > 0 && (
+                    <ProjectLanguages languages={project.languages} />
+                  )}
                   {project.link && (
                     <a
                       href={project.link}

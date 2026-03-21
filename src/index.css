@@ -562,6 +562,62 @@ img {
   color: var(--accent-hover);
 }
 
+/* GitHub-style language bar */
+.project-languages {
+  margin-top: 0.25rem;
+}
+
+.project-lang-bar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.project-lang-segment {
+  flex-shrink: 0;
+  min-width: 2px;
+  height: 100%;
+  transition: opacity var(--transition);
+}
+
+.project-lang-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.project-lang-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.project-lang-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.project-lang-name {
+  color: var(--text-muted);
+}
+
+.project-lang-pct {
+  color: var(--text-muted);
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
 .projects-empty,
 .blog-empty {
   grid-column: 1 / -1;
