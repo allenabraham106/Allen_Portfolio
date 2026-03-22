@@ -14,3 +14,23 @@ export const social = [
   { href: "https://github.com/allenabraham106", label: "GitHub", icon: "GitHub" },
   { href: "https://x.com/allenk_Abraham", label: "X", icon: "X" },
 ];
+
+// Tech stack — languages & tools you're comfortable with (edit to match your resume)
+export const techStackCategories = [
+  {
+    title: "Languages",
+    skills: ["Python", "C++", "C", "TypeScript", "JavaScript"],
+  },
+  {
+    title: "Frameworks & web",
+    skills: ["React", "HTML & CSS"],
+  },
+  {
+    title: "Tools & embedded",
+    skills: ["Git", "Docker", "STM32", "Jinja"],
+  },
+  {
+    title: "CAD & design",
+    skills: ["OnShape", "SolidWorks", "Fusion 360"],
+  },
+];

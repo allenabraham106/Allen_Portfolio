@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { site } from "../config";
+import { site, techStackCategories } from "../config";
+import { TechStackPill } from "../components/TechStackPill";
 
 const container = {
   hidden: { opacity: 0 },
@@ -202,7 +203,7 @@ const projects = [
     id: "super-mega-robot",
     title: "Super Mega Robot",
     description:
-      "A robotics hackathon project — super mega. Built with C++ for the UTRA Hackathon.",
+      "UTRA Hackathon robot: line following plus object detection. I built the detection pipeline and recovery logic so it could re-localize and stay reliable during competition — C++ on embedded hardware.",
     link: "https://devpost.com/software/goon-machine",
     languages: [
       { name: "C++", pct: 78 },
@@ -348,6 +349,52 @@ export default function Home() {
               );
             })}
           </motion.div>
+        </section>
+
+        <section id="tech-stack" className="tech-stack-section">
+          <motion.h2
+            className="section-title"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
+          >
+            Tech stack
+          </motion.h2>
+          <motion.p
+            className="section-intro"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 0.05, duration: 0.4 }}
+          >
+            Languages and tools I use regularly.
+          </motion.p>
+          <div className="tech-stack-panel">
+            <div className="tech-stack-grid">
+              {techStackCategories.map((cat, i) => (
+                  <motion.div
+                    key={cat.title}
+                    className="tech-stack-group"
+                    data-tone={String((i % 3) + 1)}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.35, delay: i * 0.04 }}
+                  >
+                    <h3 className="tech-stack-group-title">
+                      <span className="tech-stack-group-dot" aria-hidden />
+                      {cat.title}
+                    </h3>
+                    <ul className="tech-stack-pills">
+                      {cat.skills.map((skill) => (
+                        <TechStackPill key={skill} skill={skill} />
+                      ))}
+                    </ul>
+                  </motion.div>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section id="projects" className="projects-section">
