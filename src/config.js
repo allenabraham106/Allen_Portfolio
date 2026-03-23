@@ -16,6 +16,24 @@ export const social = [
 ];
 
 // Tech stack — languages & tools you're comfortable with (edit to match your resume)
+/** Short blurbs on what you're actively building or learning — great for recruiters scanning the page */
+export const currentFocus = [
+  {
+    title: "Drone Path Planning — Farm Autonomy",
+    context: "Personal project · Agtech",
+    description:
+      "Building an autonomous path planning stack for agricultural drones in Python (A*). Goal: optimize coverage routing over farm fields—think efficient irrigation and spray paths—with obstacle avoidance, inspired by ag automation startups.",
+    tags: ["Python", "A*", "Path Planning"],
+  },
+  {
+    title: "PDU Hardware-in-the-Loop Testing",
+    context: "UW Formula Electric",
+    description:
+      "Developing HIL test infrastructure for the Power Distribution Unit on our electric race car: simulating real electrical loads so we can validate firmware behavior on the bench before on-vehicle deployment.",
+    tags: ["STM32", "Embedded C", "HIL", "CAN Bus"],
+  },
+];
+
 export const techStackCategories = [
   {
     title: "Languages",

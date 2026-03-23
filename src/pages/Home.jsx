@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { site, techStackCategories } from "../config";
+import { site, currentFocus, techStackCategories } from "../config";
 import { TechStackPill } from "../components/TechStackPill";
 
 /** Public folder URL (GitHub Pages base-aware). */
@@ -255,13 +255,32 @@ export default function Home() {
                 together in embedded systems.
               </motion.p>
               <motion.div className="hero-actions" variants={item}>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                >
-                  Experience
-                </button>
+                {currentFocus.length > 0 ? (
+                  <>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => document.getElementById("working-on")?.scrollIntoView({ behavior: "smooth" })}
+                    >
+                      Right now
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+                    >
+                      Experience
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+                  >
+                    Experience
+                  </button>
+                )}
                 <button
                   type="button"
                   className="btn btn-secondary"
@@ -286,6 +305,73 @@ export default function Home() {
             </motion.div>
           </div>
         </motion.section>
+
+        {currentFocus.length > 0 && (
+          <section id="working-on" className="working-on-section" aria-labelledby="working-on-heading">
+            <motion.h2
+              id="working-on-heading"
+              className="section-title"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4 }}
+            >
+              Right now
+            </motion.h2>
+            <motion.p
+              className="section-intro"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: 0.05, duration: 0.4 }}
+            >
+              What I'm building and learning right now.
+            </motion.p>
+            <motion.div
+              className="working-on-grid"
+              variants={projectsContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+            >
+              {currentFocus.map((item, i) => (
+                <motion.article
+                  key={`${item.title}-${i}`}
+                  className="working-on-card"
+                  variants={projectItem}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                >
+                  <div className="working-on-card-head">
+                    <span className="working-on-pulse" aria-hidden />
+                    <span className="working-on-label">Active</span>
+                  </div>
+                  <h3 className="working-on-title">{item.title}</h3>
+                  {item.context && (
+                    <p className="working-on-context">{item.context}</p>
+                  )}
+                  <p className="working-on-desc">{item.description}</p>
+                  {item.tags?.length > 0 && (
+                    <ul className="working-on-tags">
+                      {item.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="working-on-link"
+                    >
+                      Learn more →
+                    </a>
+                  )}
+                </motion.article>
+              ))}
+            </motion.div>
+          </section>
+        )}
 
         <section id="experience" className="experience-section">
           <motion.h2
