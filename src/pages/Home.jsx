@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { site, techStackCategories } from "../config";
 import { TechStackPill } from "../components/TechStackPill";
 
+/** Public folder URL (GitHub Pages base-aware). */
+function publicUrl(path) {
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  return `${base}/${path.replace(/^\//, "")}`;
+}
+
 const container = {
   hidden: { opacity: 0 },
   visible: (i = 1) => ({
@@ -169,6 +175,7 @@ const projects = [
   {
     id: "behaviourly",
     title: "Behaviourly",
+    image: "projects/behaviourly.png",
     description:
       "Interview Better, Practice Smarter, Land the Job! An AI-powered interview practice tool to help you prepare and land the role.",
     link: "https://devpost.com/software/behaviourly",
@@ -182,6 +189,9 @@ const projects = [
   {
     id: "carevoice",
     title: "CareVoice",
+    image: "projects/carevoice.jpg",
+    /** Center-weighted crop — hero UI is middle-heavy */
+    imagePosition: "center",
     description:
       "A language coach designed for Rohingya women who are new to Canadian workplace culture, helping with communication, confidence, and context.",
     link: "https://github.com/allenabraham106/AIForGood",
@@ -194,6 +204,8 @@ const projects = [
   {
     id: "license-plate-recognition",
     title: "License Plate Recognition",
+    image: "projects/license-plate-recognition.png",
+    imagePosition: "center",
     description:
       "Python-based license plate recognition project — computer vision and image processing for detecting and reading license plates.",
     link: "https://github.com/allenabraham106/license_plate_recognition",
@@ -202,6 +214,8 @@ const projects = [
   {
     id: "super-mega-robot",
     title: "Super Mega Robot",
+    image: "projects/super-mega-robot.png",
+    imagePosition: "center",
     description:
       "UTRA Hackathon robot: line following plus object detection. I built the detection pipeline and recovery logic so it could re-localize and stay reliable during competition — C++ on embedded hardware.",
     link: "https://devpost.com/software/goon-machine",
@@ -446,21 +460,49 @@ export default function Home() {
                   variants={projectItem}
                   whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 >
-                  <h3 className="project-card-title">{project.title}</h3>
-                  <p className="project-card-desc">{project.description}</p>
-                  {project.languages?.length > 0 && (
-                    <ProjectLanguages languages={project.languages} />
-                  )}
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-card-link"
+                  {project.image && (
+                    <div
+                      className={
+                        project.imageFit === "contain"
+                          ? "project-card-media-wrap project-card-media-wrap--contain"
+                          : "project-card-media-wrap"
+                      }
                     >
-                      View project →
-                    </a>
+                      <img
+                        className={[
+                          project.imageFit === "contain"
+                            ? "project-card-media project-card-media--contain"
+                            : "project-card-media",
+                          project.imagePosition === "center"
+                            ? "project-card-media--pos-center"
+                            : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
+                        src={publicUrl(project.image)}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
                   )}
+                  <div className="project-card-body">
+                    <h3 className="project-card-title">{project.title}</h3>
+                    <p className="project-card-desc">{project.description}</p>
+                    {project.languages?.length > 0 && (
+                      <ProjectLanguages languages={project.languages} />
+                    )}
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-card-link"
+                      >
+                        View project →
+                      </a>
+                    )}
+                  </div>
                 </motion.article>
               ))
             )}
