@@ -249,7 +249,7 @@ const projects = [
   },
   {
     id: "super-mega-robot",
-    title: "Super Mega Robot",
+    title: "Autonomous Colour Line-Tracking Robot",
     image: "projects/super-mega-robot.png",
     imagePosition: "center",
     description:
