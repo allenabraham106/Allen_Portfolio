@@ -6,7 +6,7 @@ export const site = {
   tagline: "Student at the University of Waterloo.",
   avatar: "https://avatars.githubusercontent.com/u/112788997?v=4",
   // Resume: filename in public/ folder, or full URL (e.g. Google Drive)
-  resumeUrl: "AllenEmbedded.pdf",
+  resumeUrl: "Allen_Resume_Robotics.pdf",
 };
 
 export const social = [
