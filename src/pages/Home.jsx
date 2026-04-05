@@ -136,21 +136,40 @@ const experiences = [
     image: "/images/formula-electric.png",
     imageAlt: "University of Waterloo Formula Electric car",
     bullets: [
-      <>Programmed and deployed <strong>STM32-based firmware</strong> that controls the cooling of the car based on driver feedback, increasing the reliability of the car by 15%.</>,
-      <>Developed embedded system <strong>control logic</strong> to control components on STM32 micro-controllers, increasing driver control and system stability.</>,
-      <>Handled firmware bugs directly on the vehicle, ensuring reliable operation in a competition-based environment.</>,
+      <>
+        Designed and deployed <strong>STM32-based firmware</strong> in C for real-time cooling control over{" "}
+        <strong>CAN</strong>, integrating sensor inputs and driver feedback, increasing vehicle reliability by 15%.
+      </>,
+      <>
+        Implemented low-level peripheral configuration including <strong>ADC, DAC, GPIO, and timers</strong> on STM32
+        microcontrollers to interface with temperature and analog sensors.
+      </>,
+      <>
+        Developed <strong>HIL testing infrastructure</strong> for the PDU, writing automated test scripts in{" "}
+        <strong>Python</strong> to validate firmware behavior across multiple input conditions, improving car efficiency
+        by 10%.
+      </>,
     ],
   },
   {
     id: "midnight-sun",
-    role: "Firmware Member",
+    role: "Firmware Developer",
     org: "University of Waterloo Midnight Sun",
-    meta: "Sep. 2025 – Present · Waterloo, ON",
+    meta: "September 2025 – January 2026 · Waterloo, ON",
     image: null,
     bullets: [
-      <>Performed DAC testing across multiple data inputs, collaborating through <strong>Git-based workflows</strong> and peer reviews.</>,
-      <>Contributed to firmware builds and testing workflows using <strong>Docker</strong> to ensure reproducible builds.</>,
-      <>Assisted in early-stage testing efforts to implement <strong>Jinja</strong> to simulate our hardware boards.</>,
+      <>
+        Maintained reproducible Linux-based build environments using <strong>Docker</strong>, eliminating environment
+        inconsistencies across the firmware team and ensuring consistent build outputs.
+      </>,
+      <>
+        Performed <strong>DAC validation</strong> across multiple input conditions, confirming correct signal output
+        across all tested configurations.
+      </>,
+      <>
+        Assisted in early-stage board simulation using <strong>Jinja</strong> templates to auto-generate hardware
+        configuration files, reducing manual configuration effort.
+      </>,
     ],
   },
   {
@@ -161,11 +180,14 @@ const experiences = [
     image: "/images/forge-robotics.png",
     imageAlt: "FORGE Robotics team with competition robot (FRC 4421)",
     bullets: [
-      <><strong>3D printed</strong> and iterated robot parts using <strong>OnShape, Fusion, and SolidWorks</strong>, winning engineering awards such as the <strong>Quality Award</strong> and <strong>Innovation and Control Award</strong> at international events.</>,
-      <>Facilitated robot design decisions, enabling a <strong>top 20 finish in Canada</strong> and clinching a spot at the <strong>FIRST Robotics World Championship</strong>.</>,
-      <>Led strategy discussions in playoff competitions at international events to consistently finish in the top 4 teams.</>,
-      <>Responsible for the development of <strong>switch adapted toys for children with disabilities</strong> at Renfrew Education Service with a total value exceeding $10,000.</>,
-      <>Hosted CAD workshops for <strong>20 younger students</strong> to boost CAD involvement and introduce new skills, increasing student involvement in team decisions.</>,
+      <>
+        Led cross-functional robot design and build efforts, driving <strong>top 20 finishes in Canada</strong> and
+        qualification for the <strong>FIRST Robotics World Championship</strong>.
+      </>,
+      <>
+        Directed competition strategy during playoff rounds, consistently placing in the <strong>top 4 teams</strong> at
+        international tournaments.
+      </>,
     ],
   },
 ];
