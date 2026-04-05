@@ -181,12 +181,26 @@ const experiences = [
     imageAlt: "FORGE Robotics team with competition robot (FRC 4421)",
     bullets: [
       <>
-        Led cross-functional robot design and build efforts, driving <strong>top 20 finishes in Canada</strong> and
-        qualification for the <strong>FIRST Robotics World Championship</strong>.
+        <strong>3D printed</strong> and iterated robot parts using <strong>OnShape, Fusion, and SolidWorks</strong>,
+        winning engineering awards such as the <strong>Quality Award</strong> and{" "}
+        <strong>Innovation and Control Award</strong> at international events.
       </>,
       <>
-        Directed competition strategy during playoff rounds, consistently placing in the <strong>top 4 teams</strong> at
-        international tournaments.
+        Drove cross-functional collaboration between mechanical, electrical, and software sub-teams, achieving a{" "}
+        <strong>top-20 national ranking</strong> and qualification for the <strong>FIRST Robotics World Championship</strong>.
+      </>,
+      <>
+        Executed strategic decision-making and playoff strategy at international competitions, consistently finishing
+        within <strong>top 4 teams</strong> at the event, demonstrating leadership during high-pressure situations and
+        constraints.
+      </>,
+      <>
+        Responsible for the development of <strong>switch adapted toys for children with disabilities</strong> in
+        Renfrew Education Service with a total value exceeding $10,000.
+      </>,
+      <>
+        Hosted CAD workshops for <strong>20+ younger students</strong> to boost CAD involvement within the team and
+        introduce new skills, increasing student involvement in team decisions.
       </>,
     ],
   },
