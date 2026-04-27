@@ -209,6 +209,16 @@ const experiences = [
 // Projects (from Devpost, GitHub, etc. — add more here)
 const projects = [
   {
+    id: "ag-drone",
+    title: "Ag-Drone Agricultural Path Planner",
+    image: "projects/ag-drone.png",
+    imagePosition: "center",
+    description:
+      "An agricultural drone path planning simulator inspired by MOSS Robotics, built using a custom weighted A* algorithm that prioritizes high-yield crop zones to generate optimal harvest routes for farmers. Features a procedurally generated farm heatmap, live drone animation, and a real-time analytics dashboard tracking yield efficiency and estimated harvest value.",
+    link: "https://github.com/allenabraham106/Drone-Agriculture",
+    languages: [{ name: "Python", pct: 100 }],
+  },
+  {
     id: "behaviourly",
     title: "Behaviourly",
     image: "projects/behaviourly.png",

@@ -19,13 +19,6 @@ export const social = [
 /** Short blurbs on what you're actively building or learning — great for recruiters scanning the page */
 export const currentFocus = [
   {
-    title: "Drone Path Planning — Farm Autonomy",
-    context: "Personal project · Agtech",
-    description:
-      "Building an autonomous path planning stack for agricultural drones in Python (A*). Goal: optimize coverage routing over farm fields—think efficient irrigation and spray paths—with obstacle avoidance, inspired by ag automation startups.",
-    tags: ["Python", "A*", "Path Planning"],
-  },
-  {
     title: "PDU Hardware-in-the-Loop Testing",
     context: "UW Formula Electric",
     description:
