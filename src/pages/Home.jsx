@@ -214,7 +214,7 @@ const projects = [
     image: "projects/ag-drone.png",
     imagePosition: "center",
     description:
-      "An agricultural drone path planning simulator inspired by MOSS Robotics, built using a custom weighted A* algorithm that prioritizes high-yield crop zones to generate optimal harvest routes for farmers. Features a procedurally generated farm heatmap, live drone animation, and a real-time analytics dashboard tracking yield efficiency and estimated harvest value.",
+      "Perception plus path planning for precision ag: an OpenCV pipeline processes real aerial crop imagery with excess green index analysis to classify yield zones, then a custom weighted A* planner routes through healthier cells. Pygame simulation with live drone animation, procedural farm layouts for testing, obstacle placement, and a real-time dashboard (yield efficiency, estimated harvest value, route rating). Inspired by MOSS Robotics and Upside Robotics.",
     link: "https://github.com/allenabraham106/Drone-Agriculture",
     languages: [{ name: "Python", pct: 100 }],
   },
