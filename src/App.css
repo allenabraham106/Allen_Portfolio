@@ -3,8 +3,9 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 10, 11, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(9, 9, 11, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -16,15 +17,15 @@
 }
 
 .logo {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--text);
-  letter-spacing: -0.02em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
 }
 
 .logo:hover {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .header-socials {
@@ -60,7 +61,7 @@
   margin-top: auto;
   padding: 2.5rem 0;
   border-top: 1px solid var(--border);
-  background: var(--bg-elevated);
+  background: var(--bg);
 }
 
 .footer-inner {
@@ -97,7 +98,7 @@
 .social-link:hover {
   color: var(--accent);
   background: var(--accent-dim);
-  border-color: rgba(168, 85, 247, 0.35);
+  border-color: var(--border-hover);
 }
 
 .footer-copy {
