@@ -3,7 +3,7 @@
 export const site = {
   name: "Allen Abraham",
   title: "Allen Abraham | Portfolio",
-  tagline: "Applied Math & ECE (Controls & Communication) · Waterloo.",
+  tagline: "Applied Math & ECE (Controls & Communication) @ Waterloo.",
   avatar: "https://avatars.githubusercontent.com/u/112788997?v=4",
   // Resume: filename in public/ folder, or full URL (e.g. Google Drive)
   resumeUrl: "Allen_Resume_Robotics.pdf",
