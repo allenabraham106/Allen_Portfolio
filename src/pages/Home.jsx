@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { site, currentFocus, techStackCategories } from "../config";
 import { TechStackPill } from "../components/TechStackPill";
+import { AnimatedWords } from "../components/AnimatedWords";
 
 /** Public folder URL (GitHub Pages base-aware). */
 function publicUrl(path) {
@@ -210,11 +211,11 @@ const experiences = [
 const projects = [
   {
     id: "ag-drone",
-    title: "Ag-Drone Agricultural Path Planner",
+    title: "Drone Agricultural Path Planner",
     image: "projects/ag-drone.png",
     imagePosition: "center",
     description:
-      "Perception plus path planning for precision ag: an OpenCV pipeline processes real aerial crop imagery with excess green index analysis to classify yield zones, then a custom weighted A* planner routes through healthier cells. Pygame simulation with live drone animation, procedural farm layouts for testing, obstacle placement, and a real-time dashboard (yield efficiency, estimated harvest value, route rating). Inspired by MOSS Robotics and Upside Robotics.",
+      "A perception-to-planning pipeline for precision agriculture: an OpenCV imaging stack classifies yield zones from real aerial imagery using excess green index analysis, feeding a weighted A* planner that routes through the output confidence map rather than treating perception and planning as independent stages. Built with Pygame simulation, procedural farm layouts for stress-testing, live telemetry dashboard, and obstacle avoidance.",
     link: "https://github.com/allenabraham106/Drone-Agriculture",
     languages: [{ name: "Python", pct: 100 }],
   },
@@ -287,20 +288,34 @@ export default function Home() {
         >
           <div className="hero-inner">
             <div className="hero-text">
-              <motion.p className="hero-label" variants={item}>
-                Hi, I'm
+              <motion.p
+                className="hero-label"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                ~/allen<span className="hero-cursor" aria-hidden>_</span>
               </motion.p>
-              <motion.h1 className="hero-title" variants={item}>
-                {site.name}
-              </motion.h1>
-              <motion.p className="hero-subtitle" variants={item}>
-                {site.tagline} I build things in firmware and am interested in{" "}
-                <span className="highlight">autonomy</span>,{" "}
-                <span className="highlight">human-robot interaction (HRI)</span>, and{" "}
-                <span className="highlight">perception</span> — and bringing them
-                together in embedded systems.
-              </motion.p>
-              <motion.div className="hero-actions" variants={item}>
+              <h1 className="hero-title">
+                <AnimatedWords
+                  text={site.name}
+                  stagger={0.1}
+                  delay={0.25}
+                />
+              </h1>
+              <p className="hero-subtitle">
+                <AnimatedWords
+                  text={`${site.tagline} I build firmware and think about perception — how embedded systems can sense and model the world reliably enough to act in it. Interested in state estimation, autonomy, and the gap between control theory and real hardware.`}
+                  stagger={0.03}
+                  delay={0.55}
+                />
+              </p>
+              <motion.div
+                className="hero-actions"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.1 }}
+              >
                 {currentFocus.length > 0 ? (
                   <>
                     <button
@@ -346,7 +361,12 @@ export default function Home() {
                 )}
               </motion.div>
             </div>
-            <motion.div className="hero-avatar" variants={item}>
+            <motion.div
+              className="hero-avatar"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
               <img src={site.avatar} alt="" />
             </motion.div>
           </div>
@@ -354,6 +374,15 @@ export default function Home() {
 
         {currentFocus.length > 0 && (
           <section id="working-on" className="working-on-section" aria-labelledby="working-on-heading">
+            <motion.span
+              className="section-label"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
+            >
+              // now
+            </motion.span>
             <motion.h2
               id="working-on-heading"
               className="section-title"
@@ -385,7 +414,6 @@ export default function Home() {
                   key={`${item.title}-${i}`}
                   className="working-on-card"
                   variants={projectItem}
-                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
                 >
                   <div className="working-on-card-head">
                     <span className="working-on-pulse" aria-hidden />
@@ -420,6 +448,15 @@ export default function Home() {
         )}
 
         <section id="experience" className="experience-section">
+          <motion.span
+            className="section-label"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+          >
+            // experience
+          </motion.span>
           <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 16 }}
@@ -498,6 +535,15 @@ export default function Home() {
         </section>
 
         <section id="tech-stack" className="tech-stack-section">
+          <motion.span
+            className="section-label"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+          >
+            // stack
+          </motion.span>
           <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 16 }}
@@ -544,6 +590,15 @@ export default function Home() {
         </section>
 
         <section id="projects" className="projects-section">
+          <motion.span
+            className="section-label"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+          >
+            // projects
+          </motion.span>
           <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 16 }}
@@ -590,7 +645,6 @@ export default function Home() {
                   key={project.id || i}
                   className="project-card"
                   variants={projectItem}
-                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 >
                   {project.image && (
                     <div
@@ -642,6 +696,15 @@ export default function Home() {
         </section>
 
         <section id="hobbies" className="hobbies-section">
+          <motion.span
+            className="section-label"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+          >
+            // outside
+          </motion.span>
           <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 16 }}
@@ -672,7 +735,7 @@ export default function Home() {
               { icon: "⚽", label: "Soccer" },
               { icon: "🔬", label: "Exploring new tech" },
               { icon: "🍜", label: "Food" },
-            ].map((hobby, i) => (
+            ].map((hobby) => (
               <motion.div
                 key={hobby.label}
                 className="hobby-card"
