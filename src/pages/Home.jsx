@@ -215,7 +215,7 @@ const projects = [
     image: "projects/ag-drone.png",
     imagePosition: "center",
     description:
-      "Full ML perception plus planning: a UNet with ResNet34 encoder (PyTorch, segmentation-models-pytorch) trained on Agriculture Vision CVPR aerial imagery predicts high-, medium-, and low-yield zones; weighted A* turns that segmentation map into harvest routes that favor healthy crop and avoid anomaly regions. Also includes dataset tooling, an excess-green OpenCV pipeline for unlabeled RGB images, Pygame simulation with live drone animation, procedural farms, obstacle placement, dataset image cycling, and a real-time yield/value dashboard.",
+      "Full ML perception plus planning: a UNet with ResNet34 encoder (PyTorch, segmentation-models-pytorch) trained on Agriculture Vision CVPR aerial imagery predicts high, medium, and low-yield zones; weighted A* turns that segmentation map into harvest routes that favor healthy crop and avoid anomaly regions. Also includes dataset tooling, an excess-green OpenCV pipeline for unlabeled RGB images, Pygame simulation with live drone animation, procedural farms, obstacle placement, dataset image cycling, and a real-time yield/value dashboard.",
     link: "https://github.com/allenabraham106/Drone-Agriculture",
     languages: [{ name: "Python", pct: 100 }],
   },
