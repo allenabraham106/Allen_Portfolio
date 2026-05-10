@@ -30,11 +30,11 @@ const wordVariants = {
  */
 export function AnimatedWords({
   text,
-  el: El = "span",
+  el: _el = "span",
   className,
   stagger = 0.07,
   delay = 0,
-  once = true,
+  once: _once = true,
 }) {
   const words = text.split(" ");
 

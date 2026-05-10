@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { site, currentFocus, techStackCategories } from "../config";
 import { TechStackPill } from "../components/TechStackPill";
 import { AnimatedWords } from "../components/AnimatedWords";
@@ -16,15 +16,6 @@ const container = {
     opacity: 1,
     transition: { staggerChildren: 0.12, delayChildren: 0.04 * i },
   }),
-};
-
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] },
-  },
 };
 
 const projectsContainer = {
@@ -94,6 +85,189 @@ function normalizeLanguagePcts(langs) {
   }
   const n = langs.length;
   return langs.map((l) => ({ name: l.name, pct: 100 / n }));
+}
+
+/** Featured project carousel — horizontal “roulette” with autoplay + controls. */
+function ProjectRoulette({ projects }) {
+  const n = projects.length;
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const sectionRef = useRef(null);
+
+  const go = useCallback(
+    (delta) => {
+      if (n <= 0) return;
+      setIndex((i) => (i + delta + n) % n);
+    },
+    [n],
+  );
+
+  useEffect(() => {
+    if (n <= 1 || paused || reduceMotion) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % n);
+    }, 14000);
+    return () => clearInterval(id);
+  }, [n, paused, reduceMotion]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || n <= 1) return;
+    const onKey = (e) => {
+      if (!el.contains(document.activeElement) && document.activeElement !== el) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        go(-1);
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        go(1);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [go, n]);
+
+  if (n === 0) return null;
+
+  const slidePct = 100 / n;
+  const transition = reduceMotion
+    ? { duration: 0.2 }
+    : { type: "spring", stiffness: 260, damping: 32 };
+
+  return (
+    <div
+      ref={sectionRef}
+      className="project-roulette"
+      tabIndex={0}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Featured projects"
+    >
+      <div className="project-roulette-viewport">
+        {n > 1 && (
+          <div className="project-roulette-chrome">
+            <div className="project-roulette-progress" role="tablist" aria-label="Choose project">
+              {projects.map((project, i) => (
+                <button
+                  key={project.id || i}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === index}
+                  className={`project-roulette-progress-seg ${i === index ? "is-active" : ""}`}
+                  onClick={() => setIndex(i)}
+                  aria-label={`Show project: ${project.title}`}
+                />
+              ))}
+            </div>
+            {!reduceMotion && (
+              <button
+                type="button"
+                className="project-roulette-pause"
+                onClick={() => setPaused((p) => !p)}
+                aria-pressed={paused}
+                aria-label={paused ? "Resume autoplay" : "Pause autoplay"}
+              >
+                {paused ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
+                )}
+              </button>
+            )}
+          </div>
+        )}
+
+        {n > 1 && (
+          <>
+            <button
+              type="button"
+              className="project-roulette-arrow project-roulette-arrow--prev"
+              onClick={() => go(-1)}
+              aria-label="Previous project"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="project-roulette-arrow project-roulette-arrow--next"
+              onClick={() => go(1)}
+              aria-label="Next project"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </>
+        )}
+
+        <motion.div
+          className="project-roulette-track"
+          style={{ width: `${n * 100}%` }}
+          animate={{ x: `${-(index * 100) / n}%` }}
+          transition={transition}
+        >
+          {projects.map((project, i) => (
+            <article
+              key={project.id || i}
+              className="project-roulette-slide"
+              style={{ width: `${slidePct}%` }}
+              aria-hidden={i !== index}
+              aria-current={i === index ? "true" : undefined}
+            >
+              <div className="project-roulette-card">
+                <div className="project-roulette-hero">
+                  {project.image ? (
+                    <img
+                      className={[
+                        "project-roulette-hero-img",
+                        project.imagePosition === "center" ? "project-roulette-hero-img--center" : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                      src={publicUrl(project.image)}
+                      alt=""
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="project-roulette-hero-placeholder" aria-hidden />
+                  )}
+                  <div className="project-roulette-scrim" aria-hidden />
+                  <div className="project-roulette-overlay">
+                    <h3 className="project-roulette-overlay-title">{project.title}</h3>
+                    <p className="project-roulette-overlay-desc">{project.description}</p>
+                  </div>
+                </div>
+                <div className="project-roulette-footer">
+                  {project.languages?.length > 0 && (
+                    <ProjectLanguages languages={project.languages} />
+                  )}
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-roulette-footer-link"
+                    >
+                      View project →
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
 }
 
 function ProjectLanguages({ languages }) {
@@ -215,7 +389,7 @@ const projects = [
     image: "projects/ag-drone.png",
     imagePosition: "center",
     description:
-      "Full ML perception plus planning: a UNet with ResNet34 encoder (PyTorch, segmentation-models-pytorch) trained on Agriculture Vision CVPR aerial imagery predicts high, medium, and low-yield zones; weighted A* turns that segmentation map into harvest routes that favor healthy crop and avoid anomaly regions. Also includes dataset tooling, an excess-green OpenCV pipeline for unlabeled RGB images, Pygame simulation with live drone animation, procedural farms, obstacle placement, dataset image cycling, and a real-time yield/value dashboard.",
+      "Aerial crop segmentation (UNet) plus weighted A* harvest routes — PyTorch, sim, and a live yield dashboard.",
     link: "https://github.com/allenabraham106/Drone-Agriculture",
     languages: [{ name: "Python", pct: 100 }],
   },
@@ -223,8 +397,7 @@ const projects = [
     id: "behaviourly",
     title: "Behaviourly",
     image: "projects/behaviourly.png",
-    description:
-      "Interview Better, Practice Smarter, Land the Job! An AI-powered interview practice tool to help you prepare and land the role.",
+    description: "AI mock interviews and feedback so you can practice before the real thing.",
     link: "https://devpost.com/software/behaviourly",
     languages: [
       { name: "Python", pct: 52 },
@@ -240,7 +413,7 @@ const projects = [
     /** Center-weighted crop — hero UI is middle-heavy */
     imagePosition: "center",
     description:
-      "A language coach designed for Rohingya women who are new to Canadian workplace culture, helping with communication, confidence, and context.",
+      "Workplace language coach for Rohingya women building confidence in Canadian job contexts.",
     link: "https://github.com/allenabraham106/AIForGood",
     languages: [
       { name: "Python", pct: 58 },
@@ -253,8 +426,7 @@ const projects = [
     title: "License Plate Recognition",
     image: "projects/license-plate-recognition.png",
     imagePosition: "center",
-    description:
-      "Python-based license plate recognition project — computer vision and image processing for detecting and reading license plates.",
+    description: "Detect and read plates from images with a Python CV pipeline.",
     link: "https://github.com/allenabraham106/license_plate_recognition",
     languages: [{ name: "Python", pct: 100 }],
   },
@@ -264,7 +436,7 @@ const projects = [
     image: "projects/super-mega-robot.png",
     imagePosition: "center",
     description:
-      "UTRA Hackathon robot: line following plus object detection. I built the detection pipeline and recovery logic so it could re-localize and stay reliable during competition — C++ on embedded hardware.",
+      "UTRA line-follower with vision, recovery, and re-localization — C++ on embedded hardware.",
     link: "https://devpost.com/software/goon-machine",
     languages: [
       { name: "C++", pct: 78 },
@@ -615,21 +787,17 @@ export default function Home() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.05, duration: 0.4 }}
           >
-            A selection of things I've built — hackathon projects and more.
+            Spin through a few builds — use the arrows or dots (keyboard ← → when focused).
           </motion.p>
 
           <motion.div
-            className="projects-grid"
             variants={projectsContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-40px" }}
           >
             {projects.length === 0 ? (
-              <motion.div
-                className="projects-empty"
-                variants={projectItem}
-              >
+              <motion.div className="projects-empty" variants={projectItem}>
                 <div className="projects-empty-icon">◇</div>
                 <h3>No projects yet</h3>
                 <p>
@@ -640,57 +808,9 @@ export default function Home() {
                 </p>
               </motion.div>
             ) : (
-              projects.map((project, i) => (
-                <motion.article
-                  key={project.id || i}
-                  className="project-card"
-                  variants={projectItem}
-                >
-                  {project.image && (
-                    <div
-                      className={
-                        project.imageFit === "contain"
-                          ? "project-card-media-wrap project-card-media-wrap--contain"
-                          : "project-card-media-wrap"
-                      }
-                    >
-                      <img
-                        className={[
-                          project.imageFit === "contain"
-                            ? "project-card-media project-card-media--contain"
-                            : "project-card-media",
-                          project.imagePosition === "center"
-                            ? "project-card-media--pos-center"
-                            : "",
-                        ]
-                          .filter(Boolean)
-                          .join(" ")}
-                        src={publicUrl(project.image)}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                  )}
-                  <div className="project-card-body">
-                    <h3 className="project-card-title">{project.title}</h3>
-                    <p className="project-card-desc">{project.description}</p>
-                    {project.languages?.length > 0 && (
-                      <ProjectLanguages languages={project.languages} />
-                    )}
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-card-link"
-                      >
-                        View project →
-                      </a>
-                    )}
-                  </div>
-                </motion.article>
-              ))
+              <motion.div variants={projectItem}>
+                <ProjectRoulette projects={projects} />
+              </motion.div>
             )}
           </motion.div>
         </section>

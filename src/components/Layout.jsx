@@ -1,6 +1,7 @@
 import { Link, useLocation, Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { social as socialLinks } from "../config";
+import AmbientBackground from "./AmbientBackground";
 
 function SocialIcon({ name }) {
   const path =
@@ -22,6 +23,7 @@ export default function Layout() {
 
   return (
     <>
+      <AmbientBackground />
       <motion.header
         className="site-header"
         initial={{ y: -20, opacity: 0 }}

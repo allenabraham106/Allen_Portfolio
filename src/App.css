@@ -1,3 +1,130 @@
+/* ─── Ambient background (decorative) ───────────────── */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.35;
+  animation: ambient-orb-drift 22s ease-in-out infinite;
+}
+
+.ambient-bg__orb--a {
+  width: min(52vw, 420px);
+  height: min(52vw, 420px);
+  top: -12%;
+  right: -8%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 68%);
+  animation-delay: -4s;
+}
+
+.ambient-bg__orb--b {
+  width: min(44vw, 360px);
+  height: min(44vw, 360px);
+  bottom: -18%;
+  left: -14%;
+  background: radial-gradient(circle, rgba(99, 40, 160, 0.28) 0%, transparent 70%);
+  animation-duration: 28s;
+  animation-delay: -9s;
+}
+
+.ambient-bg__svg {
+  position: absolute;
+  right: -6%;
+  bottom: -4%;
+  width: min(440px, 58vw);
+  height: auto;
+  max-height: 55vh;
+  opacity: 0.2;
+  color: rgba(168, 85, 247, 0.35);
+  animation: ambient-arm-float 16s ease-in-out infinite;
+}
+
+.ambient-bg__arm-root {
+  transform-origin: 200px 300px;
+}
+
+.ambient-bg__joint-shoulder {
+  animation: ambient-shoulder 9s ease-in-out infinite alternate;
+}
+
+.ambient-bg__joint-elbow {
+  animation: ambient-elbow 7s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-2.5%, 2%) scale(1.05);
+  }
+  66% {
+    transform: translate(1.5%, -1.5%) scale(0.96);
+  }
+}
+
+@keyframes ambient-arm-float {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-0.4deg);
+  }
+  50% {
+    transform: translate(-10px, -14px) rotate(0.5deg);
+  }
+}
+
+@keyframes ambient-shoulder {
+  0% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes ambient-elbow {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-bg__orb,
+  .ambient-bg__svg,
+  .ambient-bg__joint-shoulder,
+  .ambient-bg__joint-elbow {
+    animation: none;
+  }
+
+  .ambient-bg__svg {
+    opacity: 0.12;
+  }
+
+  .ambient-bg__orb {
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 520px) {
+  .ambient-bg__svg {
+    right: -18%;
+    bottom: -8%;
+    width: min(320px, 92vw);
+    opacity: 0.14;
+  }
+}
+
 /* Layout */
 .site-header {
   position: sticky;
@@ -13,7 +140,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4rem;
+  height: 3.5rem;
 }
 
 .logo {
@@ -51,6 +178,8 @@
 }
 
 .main {
+  position: relative;
+  z-index: 1;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -58,8 +187,10 @@
 
 /* Footer */
 .site-footer {
+  position: relative;
+  z-index: 1;
   margin-top: auto;
-  padding: 2.5rem 0;
+  padding: 1.65rem 0;
   border-top: 1px solid var(--border);
   background: var(--bg);
 }
