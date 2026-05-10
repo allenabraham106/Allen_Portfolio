@@ -1,4 +1,4 @@
-import { Link, useLocation, Outlet } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { social as socialLinks, quirks } from "../config";
 import AmbientBackground from "./AmbientBackground";
@@ -31,9 +31,15 @@ export default function Layout() {
         transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
       >
         <div className="container header-inner">
-          <Link to="/" className="logo">
+          <button
+            type="button"
+            className="logo"
+            onClick={() => window.location.reload()}
+            aria-label="Reload site"
+            title="Reload"
+          >
             Abraham
-          </Link>
+          </button>
           <div className="header-socials">
             {socialLinks.map(({ href, label, icon }) => (
               <a

@@ -44,6 +44,13 @@ export const social = [
 /** Short blurbs on what you're actively building or learning — great for recruiters scanning the page */
 export const currentFocus = [
   {
+    title: "Video-to-3D Scene Reconstruction",
+    context: "Next project",
+    description:
+      "Building a pipeline that takes a short phone video and reconstructs a geometrically accurate, semantically labeled 3D scene using COLMAP, 3D Gaussian Splatting, and SAM + CLIP — enabling robots to rapidly understand new environments from just a camera.",
+    tags: ["COLMAP", "3DGS", "SAM", "CLIP", "Python"],
+  },
+  {
     title: "PDU Hardware-in-the-Loop Testing",
     context: "UW Formula Electric",
     description:
