@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { site, currentFocus, techStackCategories } from "../config";
+import { site, quirks, currentFocus, techStackCategories } from "../config";
 import { TechStackPill } from "../components/TechStackPill";
 import { AnimatedWords } from "../components/AnimatedWords";
 
@@ -8,6 +8,13 @@ import { AnimatedWords } from "../components/AnimatedWords";
 function publicUrl(path) {
   const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
   return `${base}/${path.replace(/^\//, "")}`;
+}
+
+function resumeHref() {
+  if (!site.resumeUrl) return null;
+  return site.resumeUrl.startsWith("http")
+    ? site.resumeUrl
+    : publicUrl(site.resumeUrl.replace(/^\//, ""));
 }
 
 const container = {
@@ -523,7 +530,7 @@ export default function Home() {
                 </button>
                 {site.resumeUrl && (
                   <a
-                    href={site.resumeUrl.startsWith("http") ? site.resumeUrl : `${(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}/${site.resumeUrl.replace(/^\//, "")}`}
+                    href={resumeHref()}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-secondary"
@@ -532,6 +539,21 @@ export default function Home() {
                   </a>
                 )}
               </motion.div>
+              {(quirks?.identityBracket || quirks?.terminalHint) && (
+                <div className="hero-quirks">
+                  {quirks.identityBracket ? (
+                    <p className="hero-quirk-bracket">{quirks.identityBracket}</p>
+                  ) : null}
+                  {quirks.terminalHint && resumeHref() ? (
+                    <p className="hero-quirk-terminal">
+                      <span className="hero-quirk-terminal-label">{quirks.terminalHint.lead}</span>
+                      <a className="hero-quirk-code" href={resumeHref()} target="_blank" rel="noopener noreferrer">
+                        $ {quirks.terminalHint.command}
+                      </a>
+                    </p>
+                  ) : null}
+                </div>
+              )}
             </div>
             <motion.div
               className="hero-avatar"

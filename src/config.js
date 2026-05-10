@@ -9,6 +9,31 @@ export const site = {
   resumeUrl: "Allen_Resume_Robotics.pdf",
 };
 
+/**
+ * Optional personality bits (inspired by dense “readme” portfolios). Set any
+ * top-level field to `null` to hide it.
+ *
+ * More ideas you can add later (no code needed until you want them):
+ * - Fake `ssh user.github.io` line that copies your email to clipboard on click
+ * - Waterloo degree “completion %” joke next to tagline
+ * - Webring nav (← prev · ring · next →)
+ * - `Last built` from CI injecting `VITE_BUILD_TIME` at build time
+ * - Keyboard shortcut (press `?`) for section jump cheatsheet
+ */
+export const quirks = {
+  /** One-line interests / identity tags */
+  identityBracket: "[firmware · robotics · perception · autonomy]",
+  /** Fake shell + résumé link — set to `null` to hide */
+  terminalHint: null,
+  /** Quote above the copyright line */
+  footerQuote: {
+    text: "Once you know what failure feels like, determination chases success.",
+    cite: "Kobe Bryant",
+  },
+  /** Optional footer line — set to `null` to hide */
+  carbonNote: null,
+};
+
 export const social = [
   { href: "https://www.linkedin.com/in/allen-abraham-4711082a4/", label: "LinkedIn", icon: "LinkedIn" },
   { href: "https://github.com/allenabraham106", label: "GitHub", icon: "GitHub" },

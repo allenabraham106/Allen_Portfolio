@@ -1,6 +1,6 @@
 import { Link, useLocation, Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { social as socialLinks } from "../config";
+import { social as socialLinks, quirks } from "../config";
 import AmbientBackground from "./AmbientBackground";
 
 function SocialIcon({ name }) {
@@ -93,6 +93,21 @@ export default function Layout() {
               </motion.a>
             ))}
           </div>
+          {(quirks?.footerQuote?.text || quirks?.carbonNote) && (
+            <div className="footer-quirks">
+              {quirks.footerQuote?.text ? (
+                <blockquote className="footer-quote" cite={quirks.footerQuote.cite || undefined}>
+                  <p className="footer-quote-text">&ldquo;{quirks.footerQuote.text}&rdquo;</p>
+                  {quirks.footerQuote.cite ? (
+                    <cite className="footer-quote-cite">— {quirks.footerQuote.cite}</cite>
+                  ) : null}
+                </blockquote>
+              ) : null}
+              {quirks.carbonNote ? (
+                <p className="footer-carbon">{quirks.carbonNote}</p>
+              ) : null}
+            </div>
+          )}
           <p className="footer-copy">© {new Date().getFullYear()} — Made by Allen</p>
         </div>
       </motion.footer>
