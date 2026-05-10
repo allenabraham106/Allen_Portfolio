@@ -484,7 +484,7 @@ export default function Home() {
               </h1>
               <p className="hero-subtitle">
                 <AnimatedWords
-                  text={`${site.tagline} I build firmware and think about perception — how embedded systems can sense and model the world reliably enough to act in it. Interested in state estimation, autonomy, and the gap between control theory and real hardware.`}
+                  text={`${site.tagline} I build firmware and focus on how embedded systems sense the world, estimate state, and act in it reliably. Interested in autonomy and the gap between control theory and real hardware.`}
                   stagger={0.03}
                   delay={0.55}
                 />
