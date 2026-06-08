@@ -41,21 +41,37 @@ export const social = [
 ];
 
 // Tech stack — languages & tools you're comfortable with (edit to match your resume)
-/** Short blurbs on what you're actively building or learning — great for recruiters scanning the page */
+/**
+ * Active builds — status: "active" | "up-next"
+ * summary = what it is; description = the tech stack / approach
+ */
 export const currentFocus = [
   {
-    title: "Video-to-3D Scene Reconstruction",
-    context: "Next project",
+    status: "active",
+    title: "Real-Time Humanoid Navigation (SORT + MPC)",
+    summary:
+      "Developing a hybrid tracking and receding-horizon control framework for humanoid navigation in crowd environments.",
     description:
-      "Building a pipeline that takes a short phone video and reconstructs a geometrically accurate, semantically labeled 3D scene using COLMAP, 3D Gaussian Splatting, and SAM + CLIP — enabling robots to rapidly understand new environments from just a camera.",
-    tags: ["COLMAP", "3DGS", "SAM", "CLIP", "Python"],
+      "Pinning raw perception data to a SORT tracker (Kalman filtering + Hungarian matching) to estimate pedestrian velocity vectors, feeding real-time constraints into a non-linear optimizer (CasADi / C++) to minimize trajectory jerk and predictively avoid dynamic collisions.",
+    tags: ["C++", "Python", "MPC", "State Estimation", "CasADi"],
   },
   {
-    title: "PDU Hardware-in-the-Loop Testing",
-    context: "UW Formula Electric",
+    status: "active",
+    title: "Adversarial Drone Racing Simulation (MARL & Self-Play)",
+    summary:
+      "Building a high-speed 3D drone interception simulation in MuJoCo.",
     description:
-      "Developing HIL test infrastructure for the Power Distribution Unit on our electric race car: simulating real electrical loads so we can validate firmware behavior on the bench before on-vehicle deployment.",
-    tags: ["STM32", "Embedded C", "HIL", "CAN Bus"],
+      "Implementing multi-agent reinforcement learning (MARL) with asymmetric self-play curricula. Training a Defender drone to learn active perception constraints — keeping a target bounded in a simulated camera frame under aggressive high-G banking turns — while dealing with injected sensor latency and partial observability.",
+    tags: ["MuJoCo", "Reinforcement Learning", "PyTorch", "Simulation", "MARL"],
+  },
+  {
+    status: "up-next",
+    title: "Spatial Intelligence & Grasp Planning (6DOF + 3DGS)",
+    summary:
+      "Transitioning a 6DOF robotic arm from static geometric pipelines to a vision-only, real-time spatial mapping stack.",
+    description:
+      "Utilizing 3D Gaussian Splatting (3DGS) and COLMAP to reconstruct dense 3D environments from a single moving camera feed, enabling the system to extract explicit object geometries and plan collision-free manipulation paths.",
+    tags: ["3DGS", "COLMAP", "Computer Vision", "ROS2", "6DOF Manipulation"],
   },
 ];
 

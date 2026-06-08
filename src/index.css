@@ -313,6 +313,10 @@ a.hero-quirk-code:hover {
   border-left-color: var(--accent);
 }
 
+.working-on-card--up-next:hover {
+  border-left-color: #eab308;
+}
+
 .working-on-card-head {
   display: flex;
   align-items: center;
@@ -334,6 +338,18 @@ a.hero-quirk-code:hover {
   0%   { box-shadow: 0 0 0 0   rgba(34, 197, 94, 0.4); }
   70%  { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);   }
   100% { box-shadow: 0 0 0 0   rgba(34, 197, 94, 0);   }
+}
+
+.working-on-pulse--up-next {
+  background: #eab308;
+  box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4);
+  animation-name: working-on-pulse-up-next;
+}
+
+@keyframes working-on-pulse-up-next {
+  0%   { box-shadow: 0 0 0 0   rgba(234, 179, 8, 0.4); }
+  70%  { box-shadow: 0 0 0 7px rgba(234, 179, 8, 0);   }
+  100% { box-shadow: 0 0 0 0   rgba(234, 179, 8, 0);   }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -359,6 +375,14 @@ a.hero-quirk-code:hover {
   font-weight: 600;
   color: var(--text);
   line-height: 1.35;
+}
+
+.working-on-summary {
+  margin: 0 0 0.45rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text);
+  font-weight: 500;
 }
 
 .working-on-context {

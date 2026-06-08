@@ -594,7 +594,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.05, duration: 0.4 }}
             >
-              What I'm building and learning right now.
+              Active builds across humanoid navigation, adversarial simulation, and spatial manipulation.
             </motion.p>
             <motion.div
               className="working-on-grid"
@@ -603,17 +603,25 @@ export default function Home() {
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
             >
-              {currentFocus.map((item, i) => (
+              {currentFocus.map((item, i) => {
+                const isUpNext = item.status === "up-next";
+                return (
                 <motion.article
                   key={`${item.title}-${i}`}
-                  className="working-on-card"
+                  className={`working-on-card${isUpNext ? " working-on-card--up-next" : ""}`}
                   variants={projectItem}
                 >
                   <div className="working-on-card-head">
-                    <span className="working-on-pulse" aria-hidden />
-                    <span className="working-on-label">Active</span>
+                    <span
+                      className={`working-on-pulse${isUpNext ? " working-on-pulse--up-next" : ""}`}
+                      aria-hidden
+                    />
+                    <span className="working-on-label">{isUpNext ? "Up next" : "Active"}</span>
                   </div>
                   <h3 className="working-on-title">{item.title}</h3>
+                  {item.summary && (
+                    <p className="working-on-summary">{item.summary}</p>
+                  )}
                   {item.context && (
                     <p className="working-on-context">{item.context}</p>
                   )}
@@ -636,7 +644,8 @@ export default function Home() {
                     </a>
                   )}
                 </motion.article>
-              ))}
+              );
+              })}
             </motion.div>
           </section>
         )}
