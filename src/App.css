@@ -34,16 +34,34 @@
   animation-delay: -9s;
 }
 
-.ambient-bg__svg {
+.ambient-bg__stage {
   position: absolute;
   right: -6%;
   bottom: -4%;
   width: min(440px, 58vw);
-  height: auto;
+  aspect-ratio: 420 / 380;
   max-height: 55vh;
+  animation: ambient-arm-float 16s ease-in-out infinite;
+}
+
+.ambient-bg__canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-bg__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0.2;
   color: rgba(168, 85, 247, 0.35);
-  animation: ambient-arm-float 16s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .ambient-bg__arm-root {
@@ -101,7 +119,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-bg__orb,
-  .ambient-bg__svg,
+  .ambient-bg__stage,
   .ambient-bg__joint-shoulder,
   .ambient-bg__joint-elbow {
     animation: none;
@@ -111,17 +129,28 @@
     opacity: 0.12;
   }
 
+  .ambient-bg__canvas {
+    opacity: 0.65;
+  }
+
   .ambient-bg__orb {
     opacity: 0.22;
   }
 }
 
 @media (max-width: 520px) {
-  .ambient-bg__svg {
+  .ambient-bg__stage {
     right: -18%;
     bottom: -8%;
     width: min(320px, 92vw);
+  }
+
+  .ambient-bg__svg {
     opacity: 0.14;
+  }
+
+  .ambient-bg__canvas {
+    display: none;
   }
 }
 
