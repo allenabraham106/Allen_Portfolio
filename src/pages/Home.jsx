@@ -1,8 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense, lazy } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { site, quirks, currentFocus, techStackCategories } from "../config";
 import { TechStackPill } from "../components/TechStackPill";
 import { AnimatedWords } from "../components/AnimatedWords";
+
+// Three.js chunk is heavy — load it after the main bundle.
+const HumanoidRobot3D = lazy(() => import("../components/HumanoidRobot3D"));
 
 /** Public folder URL (GitHub Pages base-aware). */
 function publicUrl(path) {
@@ -15,6 +18,39 @@ function resumeHref() {
   return site.resumeUrl.startsWith("http")
     ? site.resumeUrl
     : publicUrl(site.resumeUrl.replace(/^\//, ""));
+}
+
+/** Terminal-style boot line — types itself out, then idles with a block cursor. */
+function BootLine({ text, delay = 700 }) {
+  const reduceMotion = useReducedMotion();
+  const [chars, setChars] = useState(0);
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+    let i = 0;
+    let interval;
+    const start = setTimeout(() => {
+      interval = setInterval(() => {
+        i += 1;
+        setChars(i);
+        if (i >= text.length) clearInterval(interval);
+      }, 26);
+    }, delay);
+    return () => {
+      clearTimeout(start);
+      clearInterval(interval);
+    };
+  }, [text, delay, reduceMotion]);
+
+  const shown = reduceMotion ? text : text.slice(0, chars);
+  return (
+    <p className="hero-boot" aria-label={text}>
+      <span aria-hidden>&gt; {shown}</span>
+      <span className="hero-boot-cursor" aria-hidden>
+        ▌
+      </span>
+    </p>
+  );
 }
 
 const container = {
@@ -249,6 +285,9 @@ function ProjectRoulette({ projects }) {
                   )}
                   <div className="project-roulette-scrim" aria-hidden />
                   <div className="project-roulette-overlay">
+                    <span className="project-index" aria-hidden>
+                      P-{String(i + 1).padStart(2, "0")}
+                    </span>
                     <h3 className="project-roulette-overlay-title">{project.title}</h3>
                     <p className="project-roulette-overlay-desc">{project.description}</p>
                   </div>
@@ -314,7 +353,8 @@ const experiences = [
     id: "formula-electric",
     role: "Firmware Engineer",
     org: "University of Waterloo Formula Electric",
-    meta: "September 2025 – Present · Waterloo, ON",
+    meta: "September 2025 – May 2026 · Waterloo, ON",
+    status: "active",
     image: "/images/formula-electric.png",
     imageAlt: "University of Waterloo Formula Electric car",
     bullets: [
@@ -338,6 +378,7 @@ const experiences = [
     role: "Firmware Developer",
     org: "University of Waterloo Midnight Sun",
     meta: "September 2025 – January 2026 · Waterloo, ON",
+    status: "completed",
     image: null,
     bullets: [
       <>
@@ -359,6 +400,7 @@ const experiences = [
     role: "Design Team Lead",
     org: "FORGE Robotics (FRC 4421)",
     meta: "May 2023 – June 2025 · Calgary, AB",
+    status: "completed",
     image: "/images/forge-robotics.png",
     imageAlt: "FORGE Robotics team with competition robot (FRC 4421)",
     bullets: [
@@ -475,6 +517,7 @@ export default function Home() {
               >
                 ~/allen<span className="hero-cursor" aria-hidden>_</span>
               </motion.p>
+              <BootLine text="SYSTEM ONLINE · MODE: BUILD · STATUS: ACTIVE" />
               <h1 className="hero-title">
                 <AnimatedWords
                   text={site.name}
@@ -555,14 +598,24 @@ export default function Home() {
                 </div>
               )}
             </div>
-            <motion.div
-              className="hero-avatar"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <img src={site.avatar} alt="" />
-            </motion.div>
+            <div className="hero-visual">
+              <motion.div
+                className="hero-robot"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="hero-robot-stage" aria-hidden>
+                  <Suspense fallback={null}>
+                    <HumanoidRobot3D />
+                  </Suspense>
+                </div>
+                <p className="hero-robot-caption">
+                  <span className="hero-robot-caption-dot" aria-hidden />
+                  UNIT-01 · OPERATIONAL · CLICK TO INTERACT
+                </p>
+              </motion.div>
+            </div>
           </div>
         </motion.section>
 
@@ -685,7 +738,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-40px" }}
           >
-            {experiences.map((exp) => {
+            {experiences.map((exp, expIndex) => {
               const isExpanded = expandedId === exp.id;
               const hasImage = !!exp.image;
               return (
@@ -701,7 +754,18 @@ export default function Home() {
                     aria-expanded={isExpanded}
                   >
                     <div className="experience-trigger-text">
-                      <h3 className="experience-role">{exp.role}</h3>
+                      <div className="experience-role-row">
+                        <span className="experience-index" aria-hidden>
+                          E-{String(expIndex + 1).padStart(2, "0")}
+                        </span>
+                        <h3 className="experience-role">{exp.role}</h3>
+                        {exp.status && (
+                          <span className={`experience-status experience-status--${exp.status}`}>
+                            <span className="experience-status-dot" aria-hidden />
+                            {exp.status === "active" ? "Active" : "Completed"}
+                          </span>
+                        )}
+                      </div>
                       <span className="experience-org">{exp.org}</span>
                       <span className="experience-meta">{exp.meta}</span>
                     </div>
@@ -846,59 +910,6 @@ export default function Home() {
           </motion.div>
         </section>
 
-        <section id="hobbies" className="hobbies-section">
-          <motion.span
-            className="section-label"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
-          >
-            // outside
-          </motion.span>
-          <motion.h2
-            className="section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4 }}
-          >
-            Hobbies
-          </motion.h2>
-          <motion.p
-            className="section-intro"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: 0.05, duration: 0.4 }}
-          >
-            When I'm not coding or in class.
-          </motion.p>
-          <motion.div
-            className="hobbies-grid"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            variants={projectsContainer}
-          >
-            {[
-              { icon: "✈️", label: "Travel" },
-              { icon: "⚽", label: "Soccer" },
-              { icon: "🔬", label: "Exploring new tech" },
-              { icon: "🍜", label: "Food" },
-            ].map((hobby) => (
-              <motion.div
-                key={hobby.label}
-                className="hobby-card"
-                variants={projectItem}
-                whileHover={{ y: -2, scale: 1.02 }}
-              >
-                <span className="hobby-icon" aria-hidden>{hobby.icon}</span>
-                <span className="hobby-label">{hobby.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </section>
       </div>
     </div>
   );

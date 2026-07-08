@@ -34,14 +34,32 @@
   animation-delay: -9s;
 }
 
-.ambient-bg__stage {
+.ambient-bg__orb--c {
+  width: min(38vw, 320px);
+  height: min(38vw, 320px);
+  top: 32%;
+  left: 40%;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, transparent 70%);
+  opacity: 0.28;
+  animation-duration: 34s;
+  animation-delay: -15s;
+}
+
+.ambient-bg__aurora {
   position: absolute;
-  right: -6%;
-  bottom: -4%;
-  width: min(440px, 58vw);
-  aspect-ratio: 420 / 380;
-  max-height: 55vh;
-  animation: ambient-arm-float 16s ease-in-out infinite;
+  inset: -45%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(168, 85, 247, 0.055) 55deg,
+    transparent 125deg,
+    rgba(99, 40, 160, 0.05) 205deg,
+    transparent 275deg,
+    rgba(192, 132, 252, 0.045) 325deg,
+    transparent 360deg
+  );
+  filter: blur(56px);
+  animation: ambient-aurora-spin 90s linear infinite;
 }
 
 .ambient-bg__canvas {
@@ -52,28 +70,6 @@
   opacity: 1;
   pointer-events: none;
   z-index: 0;
-}
-
-.ambient-bg__svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-  color: rgba(168, 85, 247, 0.35);
-  pointer-events: none;
-}
-
-.ambient-bg__arm-root {
-  transform-origin: 200px 300px;
-}
-
-.ambient-bg__joint-shoulder {
-  animation: ambient-shoulder 9s ease-in-out infinite alternate;
-}
-
-.ambient-bg__joint-elbow {
-  animation: ambient-elbow 7s ease-in-out infinite alternate;
 }
 
 @keyframes ambient-orb-drift {
@@ -89,44 +85,16 @@
   }
 }
 
-@keyframes ambient-arm-float {
-  0%,
-  100% {
-    transform: translate(0, 0) rotate(-0.4deg);
-  }
-  50% {
-    transform: translate(-10px, -14px) rotate(0.5deg);
-  }
-}
-
-@keyframes ambient-shoulder {
-  0% {
-    transform: rotate(-2deg);
-  }
-  100% {
-    transform: rotate(4deg);
-  }
-}
-
-@keyframes ambient-elbow {
-  0% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(6deg);
+@keyframes ambient-aurora-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-bg__orb,
-  .ambient-bg__stage,
-  .ambient-bg__joint-shoulder,
-  .ambient-bg__joint-elbow {
+  .ambient-bg__aurora {
     animation: none;
-  }
-
-  .ambient-bg__svg {
-    opacity: 0.12;
   }
 
   .ambient-bg__canvas {
@@ -139,17 +107,12 @@
 }
 
 @media (max-width: 520px) {
-  .ambient-bg__stage {
-    right: -18%;
-    bottom: -8%;
-    width: min(320px, 92vw);
-  }
-
-  .ambient-bg__svg {
-    opacity: 0.14;
-  }
-
   .ambient-bg__canvas {
+    display: none;
+  }
+
+  .ambient-bg__aurora,
+  .ambient-bg__orb--c {
     display: none;
   }
 }
